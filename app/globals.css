@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn-primary {
+    @apply bg-costa-navy text-white px-8 py-3 rounded font-bold hover:bg-costa-sky hover:text-costa-navy transition-all duration-300 shadow-lg;
+  }
+  .btn-secondary {
+    @apply bg-transparent border-2 border-costa-navy text-costa-navy px-8 py-3 rounded font-bold hover:bg-costa-navy hover:text-white transition-all duration-300;
+  }
+  .btn-accent {
+    @apply bg-costa-gold text-white px-8 py-3 rounded font-bold hover:bg-costa-navy transition-all duration-300 shadow-lg;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+::-webkit-scrollbar-thumb {
+  background: #ccc; 
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #1A3A52; 
+}

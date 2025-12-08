@@ -1,10 +1,8 @@
-import type { Config } from "tailwindcss";
-
-const config: Config = {
+/** @type {import('tailwindcss').Config} */
+module.exports = {
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,jsx,ts,tsx}",
+    "./index.html"
   ],
   theme: {
     extend: {
@@ -21,8 +19,13 @@ const config: Config = {
         }
       },
       fontFamily: {
-        sans: ['var(--font-open-sans)', 'sans-serif'],
-        display: ['var(--font-montserrat)', 'sans-serif'],
+        sans: ['Open Sans', 'sans-serif'],
+        display: ['Montserrat', 'sans-serif'],
+      },
+      spacing: {
+        '18': '4.5rem',
+        '22': '5.5rem',
+        '30': '7.5rem',
       },
       boxShadow: {
         'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
@@ -31,5 +34,4 @@ const config: Config = {
     },
   },
   plugins: [],
-};
-export default config;
+}
