@@ -1,1 +1,0 @@
-export default function LegacyBlog() { return null; }

@@ -1,28 +1,39 @@
 {
-  "name": "costa-g---constructora-e-inmobiliaria",
+  "name": "costa-g-website",
+  "version": "1.0.0",
+  "description": "Sitio web corporativo para Comercializadora e Inmobiliaria Costa G S.A. de C.V.",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio",
+    "postinstall": "prisma generate || true"
   },
   "dependencies": {
-    "react": "^19.2.1",
-    "next": "^16.0.8",
-    "lucide-react": "^0.556.0",
-    "mongoose": "^9.0.1",
-    "@prisma/client": "^7.1.0",
-    "bcryptjs": "^3.0.3",
-    "jsonwebtoken": "^9.0.3",
-    "tailwindcss": "^4.1.17",
-    "next-auth": "^4.24.13"
+    "next": "14.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "lucide-react": "^0.363.0",
+    "framer-motion": "^11.0.0",
+    "clsx": "^2.1.0",
+    "tailwind-merge": "^2.2.0",
+    "@prisma/client": "^5.10.0"
   },
   "devDependencies": {
-    "@types/node": "^22.14.0",
-    "@vitejs/plugin-react": "^5.0.0",
-    "typescript": "~5.8.2",
-    "vite": "^6.2.0"
+    "@types/node": "^20.11.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "autoprefixer": "^10.4.18",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.2.0",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.3.0",
+    "prisma": "^5.10.0"
   }
 }

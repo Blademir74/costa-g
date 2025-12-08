@@ -1,0 +1,173 @@
+// ========================================
+// COSTA G - ESQUEMA DE BASE DE DATOS
+// Prisma Schema para PostgreSQL
+// ========================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ========================================
+// USUARIOS ADMINISTRADORES
+// ========================================
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String   // Hash de la contraseña
+  name      String?
+  email     String?
+  role      String   @default("admin")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relaciones
+  posts     Post[]
+  sessions  Session[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// ========================================
+// PROYECTOS
+// ========================================
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String?  @db.Text
+  content     String?  @db.Text
+  category    String
+  year        Int
+  location    String?
+  municipality String?
+  client      String?
+  dependency  String?
+  contract    String?
+  scope       String?  @db.Text
+  featured    Boolean  @default(false)
+  published   Boolean  @default(true)
+  images      String[] // Array de URLs
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ========================================
+// SERVICIOS
+// ========================================
+model Service {
+  id               String   @id @default(cuid())
+  title            String
+  slug             String   @unique
+  shortDescription String?  @db.Text
+  fullDescription  String?  @db.Text
+  icon             String?
+  features         String[] // Array de características
+  benefits         String[] // Array de beneficios
+  image            String?
+  order            Int      @default(0)
+  published        Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+// ========================================
+// BLOG / POSTS
+// ========================================
+model Post {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  excerpt     String?  @db.Text
+  content     String?  @db.Text
+  category    String?
+  image       String?
+  author      String?
+  authorId    String?
+  readTime    Int?     @default(5)
+  featured    Boolean  @default(false)
+  published   Boolean  @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  user        User?    @relation(fields: [authorId], references: [id])
+}
+
+// ========================================
+// LEADS / CONTACTOS
+// ========================================
+model Lead {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  company   String?
+  service   String?
+  message   String?  @db.Text
+  source    String?  @default("website")
+  status    String   @default("new") // new, contacted, qualified, converted, lost
+  notes     String?  @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ========================================
+// COTIZACIONES
+// ========================================
+model Quote {
+  id           String   @id @default(cuid())
+  name         String
+  email        String
+  phone        String?
+  company      String?
+  projectType  String?
+  location     String?
+  budget       String?
+  timeline     String?
+  description  String?  @db.Text
+  status       String   @default("pending") // pending, reviewing, quoted, approved, rejected
+  quotedAmount Float?
+  notes        String?  @db.Text
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+// ========================================
+// CONFIGURACIÓN DEL SITIO
+// ========================================
+model SiteConfig {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       String   @db.Text
+  description String?
+  updatedAt   DateTime @updatedAt
+}
+
+// ========================================
+// IMÁGENES / MEDIA
+// ========================================
+model Media {
+  id        String   @id @default(cuid())
+  name      String
+  url       String
+  type      String   // image, video, document
+  size      Int?
+  width     Int?
+  height    Int?
+  alt       String?
+  folder    String?  @default("general")
+  createdAt DateTime @default(now())
+}
