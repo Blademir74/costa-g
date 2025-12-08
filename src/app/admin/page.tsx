@@ -20,9 +20,7 @@ export default function AdminLoginPage() {
     try {
       const response = await fetch('/api/auth/login', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
       })
 
@@ -42,159 +40,67 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div 
-      className="min-h-screen flex items-center justify-center p-6"
-      style={{
-        background: 'linear-gradient(135deg, #0f2439 0%, #1A3A52 50%, #0d1f30 100%)',
-      }}
-    >
-      {/* Patrón decorativo */}
-      <div 
-        className="absolute inset-0 opacity-[0.05]"
-        style={{
-          backgroundImage: `radial-gradient(circle at 2px 2px, #ffffff 1px, transparent 0)`,
-          backgroundSize: '40px 40px',
-        }}
-      />
+    <div className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-[#0f2439] via-[#1A3A52] to-[#0d1f30]">
+      <div className="absolute inset-0 opacity-5" style={{ backgroundImage: `radial-gradient(circle at 2px 2px, #ffffff 1px, transparent 0)`, backgroundSize: '40px 40px' }} />
 
-      {/* Card de Login */}
-      <div 
-        className="relative w-full max-w-md p-8 rounded-2xl"
-        style={{
-          background: 'rgba(255,255,255,0.98)',
-          boxShadow: '0 25px 50px rgba(0,0,0,0.3)',
-        }}
-      >
-        {/* Logo */}
+      <div className="relative w-full max-w-md p-8 rounded-2xl bg-white shadow-2xl">
         <div className="text-center mb-8">
-          <div 
-            className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4"
-            style={{
-              background: 'linear-gradient(135deg, #1A3A52 0%, #0f2439 100%)',
-            }}
-          >
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 bg-gradient-to-br from-[#1A3A52] to-[#0f2439]">
             <Building2 className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-2xl font-black" style={{ color: '#1A3A52' }}>
-            Costa G Admin
-          </h1>
-          <p className="text-sm mt-1" style={{ color: '#64748b' }}>
-            Panel de Administración
-          </p>
+          <h1 className="text-2xl font-black text-[#1A3A52]">Costa G Admin</h1>
+          <p className="text-sm mt-1 text-gray-500">Panel de Administración</p>
         </div>
 
-        {/* Formulario */}
         <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Error */}
           {error && (
-            <div 
-              className="flex items-center gap-3 p-4 rounded-xl"
-              style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)' }}
-            >
+            <div className="flex items-center gap-3 p-4 rounded-xl bg-red-50 border border-red-200">
               <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
               <span className="text-sm text-red-600">{error}</span>
             </div>
           )}
 
-          {/* Usuario */}
           <div>
-            <label className="block text-sm font-semibold mb-2" style={{ color: '#1A3A52' }}>
-              Usuario
-            </label>
+            <label className="block text-sm font-semibold mb-2 text-[#1A3A52]">Usuario</label>
             <div className="relative">
-              <User 
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" 
-                style={{ color: '#94a3b8' }} 
-              />
+              <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
               <input
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Ingresa tu usuario"
                 required
-                className="w-full pl-12 pr-4 py-3 rounded-xl transition-all duration-300"
-                style={{
-                  background: '#f8fafc',
-                  border: '2px solid #e2e8f0',
-                  color: '#1A3A52',
-                  outline: 'none',
-                }}
-                onFocus={(e) => {
-                  e.target.style.borderColor = '#87CEEB'
-                  e.target.style.boxShadow = '0 0 0 3px rgba(135,206,235,0.2)'
-                }}
-                onBlur={(e) => {
-                  e.target.style.borderColor = '#e2e8f0'
-                  e.target.style.boxShadow = 'none'
-                }}
+                className="w-full pl-12 pr-4 py-3 rounded-xl bg-gray-50 border-2 border-gray-200 text-[#1A3A52] outline-none focus:border-sky-300 transition-colors"
               />
             </div>
           </div>
 
-          {/* Contraseña */}
           <div>
-            <label className="block text-sm font-semibold mb-2" style={{ color: '#1A3A52' }}>
-              Contraseña
-            </label>
+            <label className="block text-sm font-semibold mb-2 text-[#1A3A52]">Contraseña</label>
             <div className="relative">
-              <Lock 
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" 
-                style={{ color: '#94a3b8' }} 
-              />
+              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
               <input
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Ingresa tu contraseña"
                 required
-                className="w-full pl-12 pr-12 py-3 rounded-xl transition-all duration-300"
-                style={{
-                  background: '#f8fafc',
-                  border: '2px solid #e2e8f0',
-                  color: '#1A3A52',
-                  outline: 'none',
-                }}
-                onFocus={(e) => {
-                  e.target.style.borderColor = '#87CEEB'
-                  e.target.style.boxShadow = '0 0 0 3px rgba(135,206,235,0.2)'
-                }}
-                onBlur={(e) => {
-                  e.target.style.borderColor = '#e2e8f0'
-                  e.target.style.boxShadow = 'none'
-                }}
+                className="w-full pl-12 pr-12 py-3 rounded-xl bg-gray-50 border-2 border-gray-200 text-[#1A3A52] outline-none focus:border-sky-300 transition-colors"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-1/2 -translate-y-1/2"
-                style={{ color: '#94a3b8' }}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
               >
                 {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
               </button>
             </div>
           </div>
 
-          {/* Botón de Login */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-4 rounded-xl font-bold text-white transition-all duration-300 disabled:opacity-50"
-            style={{
-              background: loading 
-                ? '#94a3b8' 
-                : 'linear-gradient(135deg, #D4AF37 0%, #B8860B 100%)',
-              boxShadow: loading ? 'none' : '0 10px 30px rgba(212,175,55,0.3)',
-            }}
-            onMouseEnter={(e) => {
-              if (!loading) {
-                e.currentTarget.style.transform = 'translateY(-2px)'
-                e.currentTarget.style.boxShadow = '0 15px 40px rgba(212,175,55,0.4)'
-              }
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)'
-              e.currentTarget.style.boxShadow = '0 10px 30px rgba(212,175,55,0.3)'
-            }}
+            className="w-full py-4 rounded-xl font-bold text-white transition-all duration-300 disabled:opacity-50 bg-gradient-to-r from-[#D4AF37] to-[#B8860B] hover:shadow-lg"
           >
             {loading ? (
               <span className="flex items-center justify-center gap-2">
@@ -210,11 +116,8 @@ export default function AdminLoginPage() {
           </button>
         </form>
 
-        {/* Footer */}
-        <div className="mt-8 pt-6 text-center" style={{ borderTop: '1px solid #e2e8f0' }}>
-          <p className="text-xs" style={{ color: '#94a3b8' }}>
-            Costa G © 2024 - Panel de Administración
-          </p>
+        <div className="mt-8 pt-6 text-center border-t border-gray-200">
+          <p className="text-xs text-gray-400">Costa G © 2024 - Panel de Administración</p>
         </div>
       </div>
     </div>

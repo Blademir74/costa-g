@@ -35,57 +35,69 @@ export default function ServicesAdminPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-black" style={{ color: '#1A3A52' }}>Servicios</h1>
-          <p className="text-sm" style={{ color: '#64748b' }}>Gestiona los servicios de Costa G</p>
+          <h1 className="text-2xl font-black text-[#1A3A52]">Servicios</h1>
+          <p className="text-sm text-gray-500">Gestiona los servicios de Costa G</p>
         </div>
         <Link href="/admin/servicios/nuevo">
-          <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-white" style={{ background: 'linear-gradient(135deg, #D4AF37 0%, #B8860B 100%)' }}>
+          <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-white bg-gradient-to-r from-[#D4AF37] to-[#B8860B]">
             <Plus className="w-5 h-5" />
             Nuevo Servicio
           </button>
         </Link>
       </div>
 
-      <div className="rounded-2xl overflow-hidden" style={{ background: 'white', border: '1px solid #e2e8f0' }}>
+      <div className="rounded-2xl overflow-hidden bg-white border border-gray-200">
         <table className="w-full">
           <thead>
-            <tr style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
+            <tr className="bg-gray-50 border-b border-gray-200">
               <th className="w-12 px-4 py-4"></th>
-              <th className="text-left px-6 py-4 text-sm font-semibold" style={{ color: '#64748b' }}>Servicio</th>
-              <th className="text-left px-6 py-4 text-sm font-semibold" style={{ color: '#64748b' }}>Slug</th>
-              <th className="text-left px-6 py-4 text-sm font-semibold" style={{ color: '#64748b' }}>Estado</th>
-              <th className="text-right px-6 py-4 text-sm font-semibold" style={{ color: '#64748b' }}>Acciones</th>
+              <th className="text-left px-6 py-4 text-sm font-semibold text-gray-500">Servicio</th>
+              <th className="text-left px-6 py-4 text-sm font-semibold text-gray-500">Slug</th>
+              <th className="text-left px-6 py-4 text-sm font-semibold text-gray-500">Estado</th>
+              <th className="text-right px-6 py-4 text-sm font-semibold text-gray-500">Acciones</th>
             </tr>
           </thead>
           <tbody>
             {services.map((service, index) => {
               const Icon = iconMap[service.icon] || Building2
               return (
-                <tr key={service.id} style={{ borderBottom: index < services.length - 1 ? '1px solid #e2e8f0' : 'none' }} className="hover:bg-gray-50">
+                <tr 
+                  key={service.id} 
+                  className={`hover:bg-gray-50 ${index < services.length - 1 ? 'border-b border-gray-200' : ''}`}
+                >
                   <td className="px-4 py-4">
-                    <GripVertical className="w-5 h-5 cursor-grab" style={{ color: '#94a3b8' }} />
+                    <GripVertical className="w-5 h-5 cursor-grab text-gray-400" />
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'rgba(212,175,55,0.1)' }}>
-                        <Icon className="w-5 h-5 text-[#D4AF37]" />
+                      <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-amber-50">
+                        <Icon className="w-5 h-5 text-amber-600" />
                       </div>
-                      <span className="font-semibold" style={{ color: '#1A3A52' }}>{service.title}</span>
+                      <span className="font-semibold text-[#1A3A52]">{service.title}</span>
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <code className="px-2 py-1 rounded text-sm" style={{ background: '#f8fafc', color: '#64748b' }}>/servicios/{service.slug}</code>
+                    <code className="px-2 py-1 rounded text-sm bg-gray-100 text-gray-600">/servicios/{service.slug}</code>
                   </td>
                   <td className="px-6 py-4">
-                    <button onClick={() => togglePublished(service.id)} className={`px-3 py-1 rounded-full text-xs font-semibold ${service.published ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-500'}`}>
+                    <button 
+                      onClick={() => togglePublished(service.id)} 
+                      className={`px-3 py-1 rounded-full text-xs font-semibold ${service.published ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-500'}`}
+                    >
                       {service.published ? 'Publicado' : 'Borrador'}
                     </button>
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex items-center justify-end gap-2">
-                      <Link href={`/servicios/${service.slug}`} target="_blank" className="p-2 rounded-lg hover:bg-gray-100"><Eye className="w-4 h-4" style={{ color: '#64748b' }} /></Link>
-                      <Link href={`/admin/servicios/${service.id}`} className="p-2 rounded-lg hover:bg-gray-100"><Edit className="w-4 h-4" style={{ color: '#64748b' }} /></Link>
-                      <button onClick={() => deleteService(service.id)} className="p-2 rounded-lg hover:bg-red-50"><Trash2 className="w-4 h-4 text-red-500" /></button>
+                      <Link href={`/servicios/${service.slug}`} target="_blank" className="p-2 rounded-lg hover:bg-gray-100">
+                        <Eye className="w-4 h-4 text-gray-500" />
+                      </Link>
+                      <Link href={`/admin/servicios/${service.id}`} className="p-2 rounded-lg hover:bg-gray-100">
+                        <Edit className="w-4 h-4 text-gray-500" />
+                      </Link>
+                      <button onClick={() => deleteService(service.id)} className="p-2 rounded-lg hover:bg-red-50">
+                        <Trash2 className="w-4 h-4 text-red-500" />
+                      </button>
                     </div>
                   </td>
                 </tr>
