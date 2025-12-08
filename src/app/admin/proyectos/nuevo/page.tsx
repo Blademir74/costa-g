@@ -425,7 +425,7 @@ export default function NewProjectPage() {
             className="border-2 border-dashed rounded-xl p-8 text-center"
             style={{ borderColor: '#e2e8f0' }}
           >
-            <ImageIcon className="w-12 h-12 mx-auto mb-4" style={{ color: '#94a3b8' }} />
+            <ImageIcon className="w-12 h-12 mx-auto mb-4 text-gray-400" />
             <p className="font-semibold mb-2" style={{ color: '#1A3A52' }}>
               Arrastra imágenes aquí o haz clic para seleccionar
             </p>

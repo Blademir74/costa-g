@@ -68,7 +68,7 @@ export default function ServicesAdminPage() {
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'rgba(212,175,55,0.1)' }}>
-                        <Icon className="w-5 h-5" style={{ color: '#D4AF37' }} />
+                        <Icon className="w-5 h-5 text-[#D4AF37]" />
                       </div>
                       <span className="font-semibold" style={{ color: '#1A3A52' }}>{service.title}</span>
                     </div>

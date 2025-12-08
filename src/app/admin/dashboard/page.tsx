@@ -106,7 +106,9 @@ function StatCard({ stat }: { stat: typeof stats[0] }) {
             className="w-12 h-12 rounded-xl flex items-center justify-center"
             style={{ background: `${stat.color}20` }}
           >
-            <Icon className="w-6 h-6" style={{ color: stat.color }} />
+            <span style={{ color: stat.color }}>
+              <Icon className="w-6 h-6" />
+            </span>
           </div>
           <div className="flex items-center gap-1 text-sm">
             {stat.trend === 'up' ? (
@@ -241,7 +243,9 @@ export default function DashboardPage() {
                     className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3"
                     style={{ background: `${action.color}20` }}
                   >
-                    <Icon className="w-6 h-6" style={{ color: action.color }} />
+                    <span style={{ color: action.color }}>
+                      <Icon className="w-6 h-6" />
+                    </span>
                   </div>
                   <p className="text-sm font-semibold" style={{ color: '#1A3A52' }}>
                     {action.label}
