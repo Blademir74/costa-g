@@ -1,192 +1,294 @@
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
+import { useState } from 'react'
 
-const projects = [
+const proyectos = [
   { 
-    title: 'Edificación Costera Premium', 
-    location: 'Costa del Pacífico', 
-    year: '2024', 
-    category: 'Residencial',
-    image: '/images/projects/edificacion-costera.jpg',
-    desc: 'Desarrollo arquitectónico moderno con acabados de lujo frente al mar. Diseño tropical contemporáneo con áreas verdes integradas.'
+    id: 1,
+    nombre: 'Edificación Costera Premium', 
+    ubicacion: 'Costa del Pacífico, Guerrero', 
+    sector: 'Residencial',
+    tipo: 'residencial',
+    año: 2024,
+    imagen: '/images/projects/edificacion-costera.jpg',
+    descripcion: 'Desarrollo arquitectónico moderno con acabados de lujo frente al mar. Diseño tropical contemporáneo con amenidades premium.',
+    inversion: '45,000,000',
+    m2: '12,500',
+    estatus: 'Completado'
   },
   { 
-    title: 'Área Recreativa Playa', 
-    location: 'Ixtapa-Zihuatanejo', 
-    year: '2024', 
-    category: 'Recreativo',
-    image: '/images/projects/area-recreativa.jpg',
-    desc: 'Instalación de canchas y áreas de esparcimiento en resort costero con vista panorámica al océano.'
+    id: 2,
+    nombre: 'Área Recreativa Resort', 
+    ubicacion: 'Ixtapa-Zihuatanejo, Guerrero', 
+    sector: 'Recreativo',
+    tipo: 'comercial',
+    año: 2024,
+    imagen: '/images/projects/area-recreativa.jpg',
+    descripcion: 'Instalación de canchas y áreas de esparcimiento en resort costero con vista panorámica al océano Pacífico.',
+    inversion: '28,000,000',
+    m2: '8,000',
+    estatus: 'Completado'
   },
   { 
-    title: 'Red Hidráulica Rural', 
-    location: 'Sierra de Guerrero', 
-    year: '2024', 
-    category: 'Infraestructura',
-    image: '/images/projects/tuberia-hdpe.jpg',
-    desc: 'Sistema de distribución de agua potable con tubería HDPE para comunidades rurales de difícil acceso.'
+    id: 3,
+    nombre: 'Red Hidráulica Rural', 
+    ubicacion: 'Sierra de Guerrero', 
+    sector: 'Infraestructura',
+    tipo: 'infraestructura',
+    año: 2024,
+    imagen: '/images/projects/tuberia-hdpe.jpg',
+    descripcion: 'Sistema de distribución de agua potable con tubería HDPE para comunidades rurales de difícil acceso.',
+    inversion: '35,000,000',
+    m2: '15,000',
+    estatus: 'Completado'
   },
   { 
-    title: 'Sistema de Drenaje Urbano', 
-    location: 'Chilpancingo', 
-    year: '2023', 
-    category: 'Obra Civil',
-    image: '/images/projects/instalacion-drenaje.jpg',
-    desc: 'Instalación de colectores pluviales de alta capacidad para prevención de inundaciones.'
+    id: 4,
+    nombre: 'Sistema de Drenaje Urbano', 
+    ubicacion: 'Chilpancingo, Guerrero', 
+    sector: 'Obra Civil',
+    tipo: 'infraestructura',
+    año: 2023,
+    imagen: '/images/projects/instalacion-drenaje.jpg',
+    descripcion: 'Instalación de colectores pluviales de alta capacidad para prevención de inundaciones en zona urbana.',
+    inversion: '65,000,000',
+    m2: '25,000',
+    estatus: 'Completado'
   },
   { 
-    title: 'Infraestructura Hidráulica', 
-    location: 'Región Montaña', 
-    year: '2023', 
-    category: 'Infraestructura',
-    image: '/images/projects/drenaje-pluvial.jpg',
-    desc: 'Construcción de registros y red de alcantarillado con técnicas artesanales y materiales de primera.'
+    id: 5,
+    nombre: 'Infraestructura Hidráulica', 
+    ubicacion: 'Región Montaña, Guerrero', 
+    sector: 'Infraestructura',
+    tipo: 'infraestructura',
+    año: 2023,
+    imagen: '/images/projects/drenaje-pluvial.jpg',
+    descripcion: 'Construcción de registros y red de alcantarillado con técnicas artesanales y materiales de primera.',
+    inversion: '42,000,000',
+    m2: '18,000',
+    estatus: 'Completado'
   },
   { 
-    title: 'Red de Agua Potable', 
-    location: 'Costa Grande', 
-    year: '2023', 
-    category: 'Obra Civil',
-    image: '/images/projects/valvula-agua.jpg',
-    desc: 'Sistema de válvulas y conexiones para red de agua potable con tecnología de vanguardia.'
+    id: 6,
+    nombre: 'Red de Agua Potable', 
+    ubicacion: 'Costa Grande, Guerrero', 
+    sector: 'Infraestructura',
+    tipo: 'infraestructura',
+    año: 2023,
+    imagen: '/images/projects/valvula-agua.jpg',
+    descripcion: 'Sistema de válvulas y conexiones para red de agua potable con tecnología de vanguardia.',
+    inversion: '28,000,000',
+    m2: '12,000',
+    estatus: 'Completado'
   },
   { 
-    title: 'Línea de Conducción', 
-    location: 'Zona Rural', 
-    year: '2022', 
-    category: 'Infraestructura',
-    image: '/images/projects/tuberia-rural.jpg',
-    desc: 'Instalación de línea de conducción de agua en terreno montañoso con supervisión técnica especializada.'
+    id: 7,
+    nombre: 'Línea de Conducción', 
+    ubicacion: 'Zona Rural, Guerrero', 
+    sector: 'Infraestructura',
+    tipo: 'infraestructura',
+    año: 2022,
+    imagen: '/images/projects/tuberia-rural.jpg',
+    descripcion: 'Instalación de línea de conducción de agua en terreno montañoso con supervisión técnica especializada.',
+    inversion: '52,000,000',
+    m2: '20,000',
+    estatus: 'Completado'
   },
   { 
-    title: 'Instalación de Servicios', 
-    location: 'Comunidades Rurales', 
-    year: '2022', 
-    category: 'Obra Civil',
-    image: '/images/projects/instalacion-pvc.jpg',
-    desc: 'Trabajos de instalación de tuberías PVC para servicios básicos en zonas de desarrollo.'
+    id: 8,
+    nombre: 'Instalación de Servicios', 
+    ubicacion: 'Comunidades Rurales, Guerrero', 
+    sector: 'Obra Civil',
+    tipo: 'infraestructura',
+    año: 2022,
+    imagen: '/images/projects/instalacion-pvc.jpg',
+    descripcion: 'Trabajos de instalación de tuberías PVC para servicios básicos en zonas de desarrollo comunitario.',
+    inversion: '18,000,000',
+    m2: '8,500',
+    estatus: 'Completado'
   },
 ]
 
-const categories = ['Todos', 'Residencial', 'Recreativo', 'Infraestructura', 'Obra Civil']
+const tipos = [
+  { id: 'todos', nombre: 'Todos' },
+  { id: 'residencial', nombre: 'Residencial' },
+  { id: 'comercial', nombre: 'Comercial' },
+  { id: 'infraestructura', nombre: 'Infraestructura' },
+]
 
 export default function ProyectosPage() {
+  const [filtro, setFiltro] = useState('todos')
+
+  const proyectosFiltrados = filtro === 'todos' 
+    ? proyectos 
+    : proyectos.filter(p => p.tipo === filtro)
+
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-costa-light">
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50">
-        <div className="glass-dark">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-400 to-sky-600 flex items-center justify-center">
-                <span className="text-white font-bold text-lg">CG</span>
-              </div>
-              <div className="hidden sm:block">
-                <span className="font-bold text-white text-lg">COSTA G</span>
-                <span className="block text-[10px] text-sky-300 -mt-1">Constructora & Inmobiliaria</span>
-              </div>
-            </Link>
-            <nav className="hidden md:flex items-center gap-8">
-              <Link href="/" className="text-white/70 hover:text-white text-sm font-medium">Inicio</Link>
-              <Link href="/nosotros" className="text-white/70 hover:text-white text-sm font-medium">Nosotros</Link>
-              <Link href="/servicios" className="text-white/70 hover:text-white text-sm font-medium">Servicios</Link>
-              <Link href="/proyectos" className="text-white text-sm font-medium">Proyectos</Link>
-              <Link href="/contacto" className="px-5 py-2.5 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 text-white text-sm font-semibold">Cotizar</Link>
-            </nav>
+      <header className="fixed top-0 left-0 right-0 z-50 bg-costa-secondary/95 backdrop-blur-md border-b border-white/10">
+        <nav className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+          <Link href="/" className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-lg bg-costa-gold flex items-center justify-center">
+              <span className="text-costa-secondary font-black text-xl">CG</span>
+            </div>
+            <div className="hidden sm:block">
+              <span className="font-bold text-white text-xl">COSTA G</span>
+              <span className="block text-[10px] text-costa-gold">Constructora & Inmobiliaria</span>
+            </div>
+          </Link>
+          <div className="hidden md:flex items-center gap-8">
+            <Link href="/" className="text-white/70 hover:text-white text-sm font-medium">INICIO</Link>
+            <Link href="/servicios" className="text-white/70 hover:text-white text-sm font-medium">SERVICIOS</Link>
+            <Link href="/proyectos" className="text-white text-sm font-medium">PROYECTOS</Link>
+            <Link href="/materiales" className="text-white/70 hover:text-white text-sm font-medium">MATERIALES</Link>
+            <Link href="/contacto" className="text-white/70 hover:text-white text-sm font-medium">CONTACTO</Link>
           </div>
-        </div>
+          <Link href="/contacto">
+            <button className="bg-costa-gold text-costa-secondary px-6 py-2.5 rounded font-bold text-sm">
+              COTIZAR
+            </button>
+          </Link>
+        </nav>
       </header>
 
       {/* Hero */}
-      <section className="pt-24 pb-16 gradient-hero pattern-grid">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-20">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-white/90 text-sm font-medium mb-6">
-            Nuestro Portafolio
-          </span>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-6">
-            Proyectos <span className="text-gradient-gold">Realizados</span>
-          </h1>
-          <p className="text-xl text-white/70 max-w-2xl">
-            +500 proyectos completados exitosamente en más de 30 años. Conoce nuestra trayectoria nacional e internacional.
-          </p>
+      <section className="pt-24 relative h-[500px]">
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: `url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')`
+          }}
+        />
+        <div className="absolute inset-0 bg-costa-secondary/80" />
+        
+        <div className="relative z-10 h-full flex items-center">
+          <div className="max-w-7xl mx-auto px-6 w-full">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-costa-gold/20 text-costa-gold text-sm font-semibold mb-6">
+              Portafolio
+            </span>
+            <h1 className="text-4xl lg:text-6xl font-black text-white mb-6">
+              Proyectos <span className="text-costa-gold">Realizados</span>
+            </h1>
+            <p className="text-xl text-white/70 max-w-2xl">
+              +500 proyectos completados exitosamente en más de 30 años. Conoce nuestra trayectoria nacional e internacional.
+            </p>
+          </div>
         </div>
       </section>
 
       {/* Stats */}
-      <section className="py-12 bg-white border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <section className="py-12 bg-white border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
-              <p className="text-4xl font-black text-sky-500">500+</p>
-              <p className="text-slate-500">Proyectos</p>
+              <p className="text-4xl font-black text-costa-gold">500+</p>
+              <p className="text-gray-500 text-sm">Proyectos Completados</p>
             </div>
             <div>
-              <p className="text-4xl font-black text-amber-500">30+</p>
-              <p className="text-slate-500">Años</p>
+              <p className="text-4xl font-black text-costa-secondary">30+</p>
+              <p className="text-gray-500 text-sm">Años de Experiencia</p>
             </div>
             <div>
-              <p className="text-4xl font-black text-green-500">15+</p>
-              <p className="text-slate-500">Países</p>
+              <p className="text-4xl font-black text-costa-gold">15+</p>
+              <p className="text-gray-500 text-sm">Países</p>
             </div>
             <div>
-              <p className="text-4xl font-black text-purple-500">100%</p>
-              <p className="text-slate-500">Satisfacción</p>
+              <p className="text-4xl font-black text-costa-secondary">100%</p>
+              <p className="text-gray-500 text-sm">Satisfacción</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Filters */}
-      <section className="py-8 bg-white sticky top-16 z-40 border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-wrap gap-2">
-            {categories.map((cat) => (
-              <button 
-                key={cat}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${cat === 'Todos' ? 'bg-sky-500 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}
+      {/* Filtros */}
+      <section className="py-8 bg-white sticky top-[72px] z-40 border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-wrap gap-3 justify-center">
+            {tipos.map(tipo => (
+              <button
+                key={tipo.id}
+                onClick={() => setFiltro(tipo.id)}
+                className={`px-6 py-2.5 rounded-full font-semibold transition-all ${
+                  filtro === tipo.id
+                    ? 'bg-costa-gold text-costa-secondary shadow-lg'
+                    : 'bg-gray-100 text-costa-secondary hover:bg-costa-gold/10'
+                }`}
               >
-                {cat}
+                {tipo.nombre}
               </button>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Projects Grid */}
-      <section className="py-12 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {projects.map((project, index) => (
-              <div key={index} className="group bg-white rounded-2xl overflow-hidden border border-slate-100 hover:shadow-xl transition-all hover-lift">
-                <div className="aspect-[4/3] relative overflow-hidden">
+      {/* Grid de Proyectos */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <p className="text-center text-gray-500 mb-8">
+            Mostrando <strong className="text-costa-secondary">{proyectosFiltrados.length}</strong> proyectos
+          </p>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {proyectosFiltrados.map(proyecto => (
+              <div key={proyecto.id} className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group">
+                {/* Imagen */}
+                <div className="h-64 relative overflow-hidden">
                   <Image
-                    src={project.image}
-                    alt={project.title}
+                    src={proyecto.imagen}
+                    alt={proyecto.nombre}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute top-3 left-3">
-                    <span className="px-2 py-1 rounded-full bg-sky-500 text-white text-xs font-semibold">
-                      {project.category}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                  
+                  {/* Badges */}
+                  <div className="absolute top-4 left-4 flex gap-2">
+                    <span className="px-3 py-1 rounded-full bg-costa-gold text-costa-secondary text-xs font-bold">
+                      {proyecto.año}
+                    </span>
+                    <span className="px-3 py-1 rounded-full bg-green-500 text-white text-xs font-bold">
+                      {proyecto.estatus}
                     </span>
                   </div>
-                  <div className="absolute bottom-3 right-3">
-                    <span className="px-2 py-1 rounded-full bg-black/50 text-white text-xs font-medium">
-                      {project.year}
+                  
+                  {/* Título en imagen */}
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <span className="inline-block bg-white/20 backdrop-blur text-white text-xs px-2 py-1 rounded mb-2">
+                      {proyecto.sector}
                     </span>
+                    <h3 className="text-xl font-bold text-white">{proyecto.nombre}</h3>
                   </div>
                 </div>
-                <div className="p-5">
-                  <h3 className="text-lg font-bold text-slate-800 mb-1 group-hover:text-sky-600 transition-colors line-clamp-1">
-                    {project.title}
-                  </h3>
-                  <p className="text-sm text-slate-500 mb-2 flex items-center gap-1">
-                    <span>📍</span> {project.location}
+
+                {/* Contenido */}
+                <div className="p-6">
+                  <p className="text-gray-500 text-sm mb-4 flex items-center gap-1">
+                    📍 {proyecto.ubicacion}
                   </p>
-                  <p className="text-sm text-slate-600 line-clamp-2">
-                    {project.desc}
+                  
+                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                    {proyecto.descripcion}
                   </p>
+
+                  {/* Métricas */}
+                  <div className="grid grid-cols-2 gap-4 py-4 border-t border-b border-gray-100 mb-4">
+                    <div>
+                      <p className="text-xs text-gray-500">Inversión</p>
+                      <p className="font-bold text-costa-secondary">${proyecto.inversion}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-gray-500">Área Construida</p>
+                      <p className="font-bold text-costa-secondary">{proyecto.m2} m²</p>
+                    </div>
+                  </div>
+
+                  {/* Botón */}
+                  <button className="w-full bg-costa-secondary text-white py-3 rounded font-bold hover:bg-costa-dark transition-colors">
+                    Ver Detalles del Proyecto
+                  </button>
                 </div>
               </div>
             ))}
@@ -195,29 +297,33 @@ export default function ProyectosPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 gradient-sky">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <h2 className="text-3xl sm:text-4xl font-black text-white mb-6">
-            ¿Tienes un proyecto en mente?
+      <section className="py-24 bg-costa-gold">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-3xl lg:text-4xl font-black text-costa-secondary mb-6">
+            ¿Tienes un Proyecto en Mente?
           </h2>
-          <p className="text-xl text-white/70 mb-8">
-            Conviértelo en realidad con nosotros. Solicita tu consultoría gratuita.
+          <p className="text-costa-secondary/80 mb-10 text-lg">
+            Únete a nuestros +500 clientes satisfechos. Solicita una consulta gratuita hoy mismo.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contacto" className="px-8 py-4 rounded-2xl bg-white text-sky-600 font-bold text-lg hover:shadow-xl transition-all">
-              Solicitar Cotización
+            <Link href="/contacto">
+              <button className="bg-costa-secondary text-white px-10 py-4 rounded font-bold text-lg hover:bg-costa-dark transition-all">
+                INICIAR MI PROYECTO
+              </button>
             </Link>
-            <a href="https://wa.me/527472735934" target="_blank" rel="noopener noreferrer" className="px-8 py-4 rounded-2xl bg-green-500 text-white font-bold text-lg hover:bg-green-600 transition-all flex items-center justify-center gap-2">
-              💬 WhatsApp
+            <a href="https://wa.me/527472735934" target="_blank" rel="noopener noreferrer">
+              <button className="bg-white text-costa-secondary px-10 py-4 rounded font-bold text-lg hover:shadow-lg transition-all">
+                💬 CONTACTAR
+              </button>
             </a>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-slate-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
-          <p className="text-slate-400">© {new Date().getFullYear()} COSTA G - Constructora e Inmobiliaria. Todos los derechos reservados.</p>
+      <footer className="bg-costa-dark text-white py-12">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <p className="text-white/50">© {new Date().getFullYear()} COSTA G - Constructora e Inmobiliaria. Todos los derechos reservados.</p>
         </div>
       </footer>
 

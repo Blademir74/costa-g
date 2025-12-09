@@ -3,13 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --sky-primary: #0EA5E9;
-  --sky-light: #38BDF8;
-  --sky-dark: #0284C7;
-  --gold: #D4AF37;
-  --gold-light: #E5C158;
-  --navy: #1E293B;
-  --navy-dark: #0F172A;
+  --costa-secondary: #1A3A52;
+  --costa-gold: #D4AF37;
+  --costa-gold-light: #E5C158;
+  --costa-sky: #87CEEB;
+  --costa-dark: #0F2535;
+  --costa-light: #F8FAFC;
 }
 
 * {
@@ -24,8 +23,8 @@ html {
 
 body {
   font-family: 'Poppins', system-ui, -apple-system, sans-serif;
-  color: #1E293B;
-  background: #FAFAFA;
+  color: var(--costa-secondary);
+  background: var(--costa-light);
 }
 
 .font-display {

@@ -9,9 +9,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'sky-light': '#87CEEB',
-        'navy': '#1A3A52',
-        'gold': '#D4AF37',
+        'costa-secondary': '#1A3A52',
+        'costa-gold': '#D4AF37',
+        'costa-sky': '#87CEEB',
+        'costa-dark': '#0F2535',
+        'costa-light': '#F8FAFC',
+      },
+      fontFamily: {
+        sans: ['Poppins', 'system-ui', 'sans-serif'],
+        display: ['Playfair Display', 'serif'],
       },
     },
   },
