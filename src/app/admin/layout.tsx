@@ -13,8 +13,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     return <>{children}</>
   }
 
-  const handleLogout = async () => {
-    await fetch('/api/auth/logout', { method: 'POST' })
+  const handleLogout = () => {
+    localStorage.removeItem('costa_g_admin')
     router.push('/admin')
   }
 
@@ -69,7 +69,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
         <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-white/10">
           <Link href="/" className="flex items-center gap-3 px-4 py-3 rounded-xl text-white/60 hover:bg-white/5 hover:text-white mb-2">
-            <span className="font-medium">Ver Sitio Web</span>
+            <span className="font-medium">← Ver Sitio</span>
           </Link>
           <button onClick={handleLogout} className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-red-400 hover:bg-red-500/10">
             <span className="font-medium">Cerrar Sesión</span>
@@ -80,11 +80,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <div className="lg:ml-64">
         <header className="h-16 px-6 flex items-center justify-between border-b border-gray-200 bg-white">
           <button onClick={() => setSidebarOpen(true)} className="lg:hidden p-2 rounded-lg hover:bg-gray-100">
-            <svg className="w-6 h-6 text-slate-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+            <span className="text-xl">☰</span>
           </button>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 ml-auto">
             <div className="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-sm bg-slate-700">V</div>
             <span className="hidden sm:block text-sm font-semibold text-slate-800">Vladimir</span>
           </div>

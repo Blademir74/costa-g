@@ -1,48 +1,28 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
 
 const projectsData = [
-  { id: '1', title: 'Puente Vehicular El Naranjo', category: 'Puentes', year: 2024, status: 'published' },
-  { id: '2', title: 'Camino Crucero Vista Hermosa', category: 'Caminos', year: 2024, status: 'published' },
-  { id: '3', title: 'Rehabilitación Carretera Coahuayutla', category: 'Carreteras', year: 2024, status: 'draft' },
-  { id: '4', title: 'Camino Tlapa-San Marcos', category: 'Caminos', year: 2023, status: 'published' },
-  { id: '5', title: 'Pavimentación Calle Porfirio Díaz', category: 'Pavimentación', year: 2022, status: 'published' },
+  { id: 1, title: 'Puente Vehicular El Naranjo', category: 'Puentes', year: 2024, status: 'published' },
+  { id: 2, title: 'Camino Crucero Vista Hermosa', category: 'Caminos', year: 2024, status: 'published' },
+  { id: 3, title: 'Rehabilitación Carretera Coahuayutla', category: 'Carreteras', year: 2024, status: 'draft' },
+  { id: 4, title: 'Camino Tlapa-San Marcos', category: 'Caminos', year: 2023, status: 'published' },
+  { id: 5, title: 'Pavimentación Calle Porfirio Díaz', category: 'Pavimentación', year: 2022, status: 'published' },
 ]
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState(projectsData)
-  const [searchTerm, setSearchTerm] = useState('')
-
-  const filteredProjects = projects.filter(p => p.title.toLowerCase().includes(searchTerm.toLowerCase()))
-
-  const handleDelete = (id: string) => {
-    if (confirm('¿Eliminar este proyecto?')) {
-      setProjects(projects.filter(p => p.id !== id))
-    }
-  }
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-black text-slate-800">Proyectos</h1>
-          <p className="text-sm text-gray-500">Gestiona los proyectos de Costa G</p>
+          <p className="text-sm text-gray-500">Gestiona los proyectos</p>
         </div>
-        <button className="px-4 py-2.5 rounded-xl font-semibold text-white bg-gradient-to-r from-amber-500 to-amber-600">
+        <button className="px-4 py-2.5 rounded-xl font-semibold text-white bg-amber-500 hover:bg-amber-600">
           + Nuevo Proyecto
         </button>
-      </div>
-
-      <div className="p-4 rounded-2xl bg-white border border-gray-200">
-        <input
-          type="text"
-          placeholder="Buscar proyectos..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-slate-800 outline-none focus:border-sky-400"
-        />
       </div>
 
       <div className="rounded-2xl overflow-hidden bg-white border border-gray-200">
@@ -57,31 +37,19 @@ export default function ProjectsPage() {
             </tr>
           </thead>
           <tbody>
-            {filteredProjects.map((project, index) => (
-              <tr key={project.id} className={`hover:bg-gray-50 ${index < filteredProjects.length - 1 ? 'border-b border-gray-200' : ''}`}>
-                <td className="px-6 py-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-amber-100 text-amber-700 font-bold">
-                      {project.title.charAt(0)}
-                    </div>
-                    <span className="font-semibold text-slate-800">{project.title}</span>
-                  </div>
-                </td>
-                <td className="px-6 py-4">
-                  <span className="px-3 py-1 rounded-full text-xs font-medium bg-sky-100 text-slate-700">{project.category}</span>
-                </td>
+            {projects.map((project, i) => (
+              <tr key={project.id} className={`hover:bg-gray-50 ${i < projects.length - 1 ? 'border-b border-gray-200' : ''}`}>
+                <td className="px-6 py-4 font-semibold text-slate-800">{project.title}</td>
+                <td className="px-6 py-4"><span className="px-3 py-1 bg-sky-100 text-slate-700 text-xs rounded-full">{project.category}</span></td>
                 <td className="px-6 py-4 text-gray-500">{project.year}</td>
                 <td className="px-6 py-4">
-                  <span className={`px-3 py-1 rounded-full text-xs font-semibold ${project.status === 'published' ? 'bg-green-100 text-green-600' : 'bg-amber-100 text-amber-600'}`}>
+                  <span className={`px-3 py-1 text-xs rounded-full ${project.status === 'published' ? 'bg-green-100 text-green-600' : 'bg-amber-100 text-amber-600'}`}>
                     {project.status === 'published' ? 'Publicado' : 'Borrador'}
                   </span>
                 </td>
-                <td className="px-6 py-4">
-                  <div className="flex items-center justify-end gap-2">
-                    <Link href={`/proyectos`} className="px-3 py-1 rounded-lg text-sm bg-gray-100 hover:bg-gray-200 text-gray-600">Ver</Link>
-                    <button className="px-3 py-1 rounded-lg text-sm bg-gray-100 hover:bg-gray-200 text-gray-600">Editar</button>
-                    <button onClick={() => handleDelete(project.id)} className="px-3 py-1 rounded-lg text-sm bg-red-100 hover:bg-red-200 text-red-600">Eliminar</button>
-                  </div>
+                <td className="px-6 py-4 text-right">
+                  <button className="px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 rounded-lg mr-2">Editar</button>
+                  <button className="px-3 py-1 text-sm bg-red-100 hover:bg-red-200 text-red-600 rounded-lg">Eliminar</button>
                 </td>
               </tr>
             ))}

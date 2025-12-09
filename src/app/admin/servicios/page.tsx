@@ -1,37 +1,26 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
 
 const servicesData = [
-  { id: '1', title: 'Construcción', slug: 'construccion', published: true },
-  { id: '2', title: 'Remodelación', slug: 'remodelacion', published: true },
-  { id: '3', title: 'Venta de Materiales', slug: 'venta-materiales', published: true },
-  { id: '4', title: 'Diseño Arquitectónico', slug: 'diseno', published: true },
-  { id: '5', title: 'Consultoría', slug: 'consultoria', published: true },
+  { id: 1, title: 'Construcción', slug: 'construccion', published: true },
+  { id: 2, title: 'Remodelación', slug: 'remodelacion', published: true },
+  { id: 3, title: 'Venta de Materiales', slug: 'venta-materiales', published: true },
+  { id: 4, title: 'Diseño Arquitectónico', slug: 'diseno', published: true },
+  { id: 5, title: 'Consultoría', slug: 'consultoria', published: true },
 ]
 
 export default function ServicesAdminPage() {
   const [services, setServices] = useState(servicesData)
-
-  const togglePublished = (id: string) => {
-    setServices(services.map(s => s.id === id ? { ...s, published: !s.published } : s))
-  }
-
-  const deleteService = (id: string) => {
-    if (confirm('¿Eliminar este servicio?')) {
-      setServices(services.filter(s => s.id !== id))
-    }
-  }
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-black text-slate-800">Servicios</h1>
-          <p className="text-sm text-gray-500">Gestiona los servicios de Costa G</p>
+          <p className="text-sm text-gray-500">Gestiona los servicios</p>
         </div>
-        <button className="px-4 py-2.5 rounded-xl font-semibold text-white bg-gradient-to-r from-amber-500 to-amber-600">
+        <button className="px-4 py-2.5 rounded-xl font-semibold text-white bg-amber-500 hover:bg-amber-600">
           + Nuevo Servicio
         </button>
       </div>
@@ -47,39 +36,18 @@ export default function ServicesAdminPage() {
             </tr>
           </thead>
           <tbody>
-            {services.map((service, index) => (
-              <tr key={service.id} className={`hover:bg-gray-50 ${index < services.length - 1 ? 'border-b border-gray-200' : ''}`}>
+            {services.map((service, i) => (
+              <tr key={service.id} className={`hover:bg-gray-50 ${i < services.length - 1 ? 'border-b border-gray-200' : ''}`}>
+                <td className="px-6 py-4 font-semibold text-slate-800">{service.title}</td>
+                <td className="px-6 py-4"><code className="px-2 py-1 bg-gray-100 text-gray-600 text-sm rounded">/servicios/{service.slug}</code></td>
                 <td className="px-6 py-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-amber-100 text-amber-700 font-bold">
-                      {service.title.charAt(0)}
-                    </div>
-                    <span className="font-semibold text-slate-800">{service.title}</span>
-                  </div>
-                </td>
-                <td className="px-6 py-4">
-                  <code className="px-2 py-1 rounded text-sm bg-gray-100 text-gray-600">/servicios/{service.slug}</code>
-                </td>
-                <td className="px-6 py-4">
-                  <button 
-                    onClick={() => togglePublished(service.id)} 
-                    className={`px-3 py-1 rounded-full text-xs font-semibold ${service.published ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-500'}`}
-                  >
+                  <span className={`px-3 py-1 text-xs rounded-full ${service.published ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-500'}`}>
                     {service.published ? 'Publicado' : 'Borrador'}
-                  </button>
+                  </span>
                 </td>
-                <td className="px-6 py-4">
-                  <div className="flex items-center justify-end gap-2">
-                    <Link href={`/servicios/${service.slug}`} target="_blank" className="px-3 py-1 rounded-lg text-sm bg-gray-100 hover:bg-gray-200 text-gray-600">
-                      Ver
-                    </Link>
-                    <button className="px-3 py-1 rounded-lg text-sm bg-gray-100 hover:bg-gray-200 text-gray-600">
-                      Editar
-                    </button>
-                    <button onClick={() => deleteService(service.id)} className="px-3 py-1 rounded-lg text-sm bg-red-100 hover:bg-red-200 text-red-600">
-                      Eliminar
-                    </button>
-                  </div>
+                <td className="px-6 py-4 text-right">
+                  <button className="px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 rounded-lg mr-2">Editar</button>
+                  <button className="px-3 py-1 text-sm bg-red-100 hover:bg-red-200 text-red-600 rounded-lg">Eliminar</button>
                 </td>
               </tr>
             ))}

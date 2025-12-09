@@ -15,26 +15,14 @@ export default function AdminLoginPage() {
     setError('')
     setLoading(true)
 
-    try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-      })
-
-      const data = await response.json()
-
-      if (response.ok) {
-        router.push('/admin/dashboard')
-        router.refresh()
-      } else {
-        setError(data.error || 'Credenciales incorrectas')
-      }
-    } catch {
-      setError('Error de conexión')
-    } finally {
-      setLoading(false)
+    // Credenciales hardcodeadas para demo
+    if (username === 'vladimir' && password === '1723Yf74') {
+      localStorage.setItem('costa_g_admin', 'true')
+      router.push('/admin/dashboard')
+    } else {
+      setError('Credenciales incorrectas')
     }
+    setLoading(false)
   }
 
   return (
@@ -63,7 +51,7 @@ export default function AdminLoginPage() {
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Ingresa tu usuario"
               required
-              className="w-full px-4 py-3 rounded-xl bg-gray-50 border-2 border-gray-200 text-slate-800 outline-none focus:border-sky-400"
+              className="w-full px-4 py-3 rounded-xl bg-gray-50 border-2 border-gray-200 text-slate-800 outline-none focus:border-amber-400"
             />
           </div>
 
@@ -75,7 +63,7 @@ export default function AdminLoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Ingresa tu contraseña"
               required
-              className="w-full px-4 py-3 rounded-xl bg-gray-50 border-2 border-gray-200 text-slate-800 outline-none focus:border-sky-400"
+              className="w-full px-4 py-3 rounded-xl bg-gray-50 border-2 border-gray-200 text-slate-800 outline-none focus:border-amber-400"
             />
           </div>
 
@@ -84,7 +72,7 @@ export default function AdminLoginPage() {
             disabled={loading}
             className="w-full py-4 rounded-xl font-bold text-white bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 disabled:opacity-50"
           >
-            {loading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
+            {loading ? 'Iniciando...' : 'Iniciar Sesión'}
           </button>
         </form>
 
