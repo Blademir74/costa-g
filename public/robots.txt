@@ -1,0 +1,78 @@
+# ============================================
+# COSTA G - robots.txt
+# Optimizado para SEO Global y Visibilidad en IA
+# ============================================
+
+# Permitir todos los crawlers
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+# ============================================
+# BOTS DE MOTORES DE BÚSQUEDA
+# ============================================
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+# ============================================
+# BOTS DE IA - Visibilidad en Motores de IA
+# ============================================
+
+# OpenAI GPT Crawler
+User-agent: GPTBot
+Allow: /
+
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /
+
+# Anthropic Claude
+User-agent: Claude-Web
+Allow: /
+
+# Google AI / Bard
+User-agent: Google-Extended
+Allow: /
+
+# Common Crawl (usado por muchos LLMs)
+User-agent: CCBot
+Allow: /
+
+# ============================================
+# REDES SOCIALES
+# ============================================
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+# ============================================
+# SITEMAP
+# ============================================
+
+Sitemap: https://costag.com.mx/sitemap.xml

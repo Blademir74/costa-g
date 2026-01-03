@@ -2,14 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================
+   COSTA G - LUXURY DESIGN SYSTEM
+   "El lujo susurra con confianza"
+   
+   Paleta:
+   - Navy (#1A3A52): Títulos, CTAs
+   - Gold (#D4AF37): Acentos premium
+   - SkyLight (#F0F8FF): Fondos
+   - Charcoal (#666666): Texto
+   
+   SIN SearchBar - CÓDIGO LIMPIO
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
 :root {
-  --costa-secondary: #1A3A52;
-  --costa-gold: #D4AF37;
-  --costa-gold-light: #E5C158;
-  --costa-sky: #87CEEB;
-  --costa-dark: #0F2535;
-  --costa-light: #F8FAFC;
+  /* Navy - Autoridad */
+  --navy-500: #1A3A52;
+  --navy-600: #152E42;
+  --navy-700: #102331;
+  
+  /* Gold - Exclusividad */
+  --gold-400: #DFBF47;
+  --gold-500: #D4AF37;
+  --gold-600: #B8962A;
+  
+  /* Sky Light - Calma */
+  --sky-light: #F0F8FF;
+  
+  /* Charcoal - Legibilidad */
+  --charcoal-400: #888888;
+  --charcoal-500: #666666;
+  --charcoal-600: #525252;
+  
+  /* Typography */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Poppins', system-ui, sans-serif;
+  
+  /* Spacing */
+  --section-padding: clamp(5rem, 10vw, 8rem);
+  
+  /* Transitions */
+  --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-luxury: 700ms cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
 
 * {
   margin: 0;
@@ -19,173 +60,377 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  font-family: 'Poppins', system-ui, -apple-system, sans-serif;
-  color: var(--costa-secondary);
-  background: var(--costa-light);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--charcoal-500);
+  background-color: var(--sky-light);
+  font-size: 1.0625rem;
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--navy-500);
 }
 
 .font-display {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
 }
 
-/* Animaciones */
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+/* ============================================
+   HERO CINEMATIC - ALTO IMPACTO
+   Efecto: Contraste dramático + Fade invisible
+   ============================================ */
+
+.hero-cinematic {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
 }
 
-@keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
-  50% { box-shadow: 0 0 20px 10px rgba(37, 211, 102, 0.3); }
+/* Imagen con tratamiento editorial-arquitectónico */
+.hero-image {
+  filter: 
+    contrast(1.15)      /* Contraste dramático */
+    saturate(1.1)       /* Colores vivos */
+    brightness(0.92);   /* Profundidad */
+  
+  animation: heroImageReveal 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-@keyframes slide-up {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes heroImageReveal {
+  0% {
+    opacity: 0;
+    transform: scale(1.1);
+    filter: blur(8px) contrast(1.15) saturate(1.1) brightness(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0) contrast(1.15) saturate(1.1) brightness(0.92);
+  }
 }
 
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+/* Fade INVISIBLE hacia #F0F8FF */
+.hero-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(26, 58, 82, 0.75) 0%,
+    rgba(26, 58, 82, 0.55) 30%,
+    rgba(26, 58, 82, 0.35) 50%,
+    rgba(240, 248, 255, 0.5) 70%,
+    rgba(240, 248, 255, 0.9) 90%,
+    #F0F8FF 100%
+  );
 }
 
-@keyframes scale-in {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
+/* Animaciones escalonadas */
+.hero-element {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: heroFadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.animate-float { animation: float 3s ease-in-out infinite; }
-.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
-.animate-slide-up { animation: slide-up 0.6s ease-out forwards; }
-.animate-fade-in { animation: fade-in 0.5s ease-out forwards; }
-.animate-scale-in { animation: scale-in 0.5s ease-out forwards; }
+.hero-delay-1 { animation-delay: 0.2s; }
+.hero-delay-2 { animation-delay: 0.4s; }
+.hero-delay-3 { animation-delay: 0.6s; }
+.hero-delay-4 { animation-delay: 0.8s; }
+.hero-delay-5 { animation-delay: 1.0s; }
 
-/* Delays para animaciones escalonadas */
-.delay-100 { animation-delay: 0.1s; }
-.delay-200 { animation-delay: 0.2s; }
-.delay-300 { animation-delay: 0.3s; }
-.delay-400 { animation-delay: 0.4s; }
-.delay-500 { animation-delay: 0.5s; }
-
-/* Gradientes personalizados */
-.gradient-sky {
-  background: linear-gradient(135deg, #0EA5E9 0%, #0284C7 50%, #1E293B 100%);
+@keyframes heroFadeInUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
-.gradient-gold {
-  background: linear-gradient(135deg, #D4AF37 0%, #E5C158 100%);
+/* ============================================
+   BUTTONS - LUXURY
+   ============================================ */
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  letter-spacing: 0.02em;
+  color: white;
+  background: linear-gradient(135deg, #1A3A52 0%, #2A5A72 100%);
+  border: none;
+  border-radius: 0.875rem;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  box-shadow: 0 4px 14px rgba(26, 58, 82, 0.25);
 }
 
-.gradient-hero {
-  background: linear-gradient(135deg, #0F172A 0%, #1E293B 40%, #0284C7 100%);
+.btn-primary:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(26, 58, 82, 0.35);
 }
 
-/* Patrón de fondo sutil */
-.pattern-dots {
-  background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
-  background-size: 20px 20px;
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: var(--gold-500);
+  background: transparent;
+  border: 2px solid var(--gold-500);
+  border-radius: 0.875rem;
+  cursor: pointer;
+  transition: all var(--transition-base);
 }
 
-.pattern-grid {
-  background-image: 
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-  background-size: 50px 50px;
+.btn-secondary:hover {
+  background: var(--gold-500);
+  color: var(--navy-500);
+  transform: translateY(-4px);
 }
 
-/* Glassmorphism */
-.glass {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+/* ============================================
+   CARDS - LUXURY
+   ============================================ */
+
+.card-luxury {
+  background: white;
+  border-radius: 1.25rem;
+  padding: 2rem;
+  border: 1px solid rgba(26, 58, 82, 0.08);
+  transition: all var(--transition-base);
+  box-shadow: 0 4px 20px rgba(26, 58, 82, 0.08);
 }
 
-.glass-dark {
-  background: rgba(15, 23, 42, 0.8);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+.card-luxury:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(26, 58, 82, 0.15);
 }
 
-/* Sombras personalizadas */
-.shadow-glow-sky {
-  box-shadow: 0 0 40px rgba(14, 165, 233, 0.3);
+/* ============================================
+   BADGES
+   ============================================ */
+
+.badge-gold {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.375rem 1rem;
+  background: linear-gradient(135deg, #D4AF37, #F4CF57);
+  color: var(--navy-500);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  border-radius: 2rem;
+  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
 }
 
-.shadow-glow-gold {
-  box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+.badge-navy {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1.25rem;
+  background: rgba(26, 58, 82, 0.1);
+  color: var(--navy-500);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  border-radius: 2rem;
 }
 
-/* Hover effects */
-.hover-lift {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* ============================================
+   SECTION LABELS
+   ============================================ */
+
+.section-label {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold-500);
+  margin-bottom: 1rem;
 }
 
-.hover-lift:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-}
+/* ============================================
+   WHATSAPP BUTTON
+   ============================================ */
 
-/* Texto con gradiente */
-.text-gradient-sky {
-  background: linear-gradient(135deg, #38BDF8 0%, #0EA5E9 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.text-gradient-gold {
-  background: linear-gradient(135deg, #E5C158 0%, #D4AF37 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* WhatsApp button */
 .whatsapp-btn {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 1000;
+  bottom: 2rem;
+  right: 2rem;
   width: 60px;
   height: 60px;
+  background: linear-gradient(135deg, #25D366, #128C7E);
   border-radius: 50%;
-  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-  transition: all 0.3s ease;
-  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+  z-index: 1000;
+  transition: all var(--transition-base);
 }
 
 .whatsapp-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
+  transform: scale(1.1) translateY(-4px);
+  box-shadow: 0 10px 30px rgba(37, 211, 102, 0.5);
 }
 
-.whatsapp-btn svg {
-  width: 32px;
-  height: 32px;
-  fill: white;
+/* ============================================
+   ACCESIBILIDAD - WCAG 2.1 AA
+   ============================================ */
+
+:focus-visible {
+  outline: 3px solid var(--gold-500);
+  outline-offset: 4px;
+  border-radius: 4px;
 }
 
-/* Scrollbar personalizado */
-::-webkit-scrollbar {
-  width: 10px;
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  z-index: 100;
+  padding: 16px 24px;
+  background: var(--gold-500);
+  color: var(--navy-500);
+  font-weight: 600;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: top 0.3s ease;
 }
 
-::-webkit-scrollbar-track {
-  background: #F1F5F9;
+.skip-link:focus {
+  top: 16px;
 }
 
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #0EA5E9, #0284C7);
-  border-radius: 5px;
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .hero-image,
+  .hero-element {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #0284C7, #0369A1);
+/* Selection */
+::selection {
+  background: #EFDFA3;
+  color: var(--navy-500);
+}
+
+/* ============================================
+   ADMIN DASHBOARD STYLES
+   Paleta: Navy + Charcoal (profesional)
+   ============================================ */
+
+.admin-layout {
+  min-height: 100vh;
+  background: #F8FAFC;
+}
+
+.admin-sidebar {
+  background: var(--navy-500);
+  color: white;
+}
+
+.admin-card {
+  background: white;
+  border-radius: 1rem;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.admin-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #E2E8F0;
+  border-radius: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  transition: all 0.2s ease;
+}
+
+.admin-input:focus {
+  outline: none;
+  border-color: var(--gold-500);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.admin-btn {
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.admin-btn-primary {
+  background: var(--navy-500);
+  color: white;
+}
+
+.admin-btn-primary:hover {
+  background: var(--navy-600);
+}
+
+.admin-btn-gold {
+  background: var(--gold-500);
+  color: var(--navy-500);
+}
+
+.admin-btn-gold:hover {
+  background: var(--gold-600);
+}
+
+/* ============================================
+   UTILITIES
+   ============================================ */
+
+.section-padding {
+  padding-top: var(--section-padding);
+  padding-bottom: var(--section-padding);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }

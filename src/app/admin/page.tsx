@@ -1,84 +1,87 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import Link from 'next/link'
+import { createClient } from '@/utils/supabase/client'
+import { Project } from '@/types/database'
 
-export default function AdminLoginPage() {
-  const router = useRouter()
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
+export default function AdminProjectsPage() {
+  const [projects, setProjects] = useState<Project[]>([])
+  const [loading, setLoading] = useState(true)
+  const supabase = createClient()
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError('')
-    setLoading(true)
-
-    // Credenciales hardcodeadas para demo
-    if (username === 'vladimir' && password === '1723Yf74') {
-      localStorage.setItem('costa_g_admin', 'true')
-      router.push('/admin/dashboard')
-    } else {
-      setError('Credenciales incorrectas')
+  useEffect(() => {
+    const fetchProjects = async () => {
+      // Traemos los proyectos ordenados por ID para mantener consistencia
+      const { data, error } = await supabase
+        .from('projects')
+        .select(`
+          *,
+          category:categories (name)
+        `)
+        .order('id', { ascending: true })
+      
+      if (data) setProjects(data as Project[])
+      setLoading(false)
     }
-    setLoading(false)
-  }
+    fetchProjects()
+  }, [supabase])
+
+  if (loading) return <div>Cargando proyectos...</div>
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950">
-      <div className="w-full max-w-md p-8 rounded-2xl bg-white shadow-2xl">
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 bg-gradient-to-br from-slate-700 to-slate-900">
-            <span className="text-2xl text-white font-bold">CG</span>
-          </div>
-          <h1 className="text-2xl font-black text-slate-800">Costa G Admin</h1>
-          <p className="text-sm mt-1 text-gray-500">Panel de Administración</p>
+    <div className="max-w-6xl mx-auto">
+      <header className="flex justify-between items-center mb-8">
+        <div>
+          <h1 className="text-3xl font-display font-bold text-slate-900">Gestión de Proyectos</h1>
+          <p className="text-slate-500">Administra el catálogo de obras públicas ({projects.length} registros)</p>
         </div>
+        {/* Futuro: Botón para crear nuevo proyecto */}
+      </header>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
-          {error && (
-            <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-600 text-sm">
-              {error}
-            </div>
-          )}
-
-          <div>
-            <label className="block text-sm font-semibold mb-2 text-slate-800">Usuario</label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Ingresa tu usuario"
-              required
-              className="w-full px-4 py-3 rounded-xl bg-gray-50 border-2 border-gray-200 text-slate-800 outline-none focus:border-amber-400"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-semibold mb-2 text-slate-800">Contraseña</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Ingresa tu contraseña"
-              required
-              className="w-full px-4 py-3 rounded-xl bg-gray-50 border-2 border-gray-200 text-slate-800 outline-none focus:border-amber-400"
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-4 rounded-xl font-bold text-white bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 disabled:opacity-50"
-          >
-            {loading ? 'Iniciando...' : 'Iniciar Sesión'}
-          </button>
-        </form>
-
-        <div className="mt-8 pt-6 text-center border-t border-gray-200">
-          <p className="text-xs text-gray-400">Costa G © 2024</p>
-        </div>
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <table className="w-full text-left border-collapse">
+          <thead className="bg-slate-50 border-b border-slate-200">
+            <tr>
+              <th className="p-4 text-xs font-bold text-slate-500 uppercase">ID</th>
+              <th className="p-4 text-xs font-bold text-slate-500 uppercase">Imagen</th>
+              <th className="p-4 text-xs font-bold text-slate-500 uppercase">Título / Ubicación</th>
+              <th className="p-4 text-xs font-bold text-slate-500 uppercase">Categoría</th>
+              <th className="p-4 text-xs font-bold text-slate-500 uppercase text-right">Acciones</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-slate-100">
+            {projects.map((project) => (
+              <tr key={project.id} className="hover:bg-slate-50 transition-colors">
+                <td className="p-4 text-sm font-mono text-slate-400">#{project.id}</td>
+                <td className="p-4">
+                  <div className="w-16 h-12 bg-slate-100 rounded-lg overflow-hidden relative border border-slate-200">
+                    {project.main_image_url && (
+                      <img src={project.main_image_url} alt="" className="w-full h-full object-cover" />
+                    )}
+                  </div>
+                </td>
+                <td className="p-4">
+                  <div className="font-bold text-slate-900">{project.title}</div>
+                  <div className="text-xs text-slate-500">{project.location}</div>
+                </td>
+                <td className="p-4">
+                  <span className="inline-block px-2 py-1 bg-sky-100 text-sky-700 text-xs font-bold rounded-md">
+                    {project.category?.name || 'General'}
+                  </span>
+                </td>
+                <td className="p-4 text-right">
+                  <Link 
+                    href={`/admin/proyectos/editar/${project.id}`}
+                    className="inline-flex items-center px-3 py-1.5 bg-white border border-slate-200 hover:border-sky-500 hover:text-sky-600 text-slate-600 text-sm font-medium rounded-lg transition-all shadow-sm"
+                  >
+                    ✏️ Editar
+                  </Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   )

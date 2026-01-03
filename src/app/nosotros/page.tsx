@@ -1,245 +1,437 @@
-import Link from 'next/link'
+import { Metadata } from 'next'
+import Image from 'next/image'
+import { Button, CTASection } from '@/components/ui'
 
-const values = [
-  { icon: '🎯', title: 'Excelencia', desc: 'Compromiso con la máxima calidad en cada proyecto' },
-  { icon: '🌍', title: 'Alcance Global', desc: 'Proyectos nacionales e internacionales' },
-  { icon: '🤝', title: 'Confianza', desc: '30+ años respaldando nuestro trabajo' },
-  { icon: '💡', title: 'Innovación', desc: 'Tecnología y técnicas de vanguardia' },
+export const metadata: Metadata = {
+  title: 'Nosotros | Nuestra Historia',
+  description: 
+    'Conoce Costa G: 7 años de experiencia, 243+ puentes rehabilitados, 17 proyectos completados. ' +
+    'Constructora bio-sustentable comprometida con Guerrero desde 2018.',
+}
+
+/* ============================================
+   DATOS REALES DEL CURRÍCULUM
+   ============================================ */
+
+// Misión y valores del currículum
+const identidad = {
+  mision: 'Construir con los menores procesos contaminantes y dejar en cada obra una huella de carbono menor para preservar nuestro mundo. Buscamos ser una empresa certificada en edificaciones Bio-Sustentables.',
+  filosofia: 'Nos identificamos como una empresa responsable, comprometidos con las necesidades de nuestros clientes.',
+}
+
+const valores = [
+  { 
+    nombre: 'Honestidad', 
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-8 h-8">
+      <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+    </svg>`,
+    descripcion: 'Transparencia en cada proceso, desde la cotización hasta la entrega final.' 
+  },
+  { 
+    nombre: 'Capacidad', 
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-8 h-8">
+      <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+    </svg>`,
+    descripcion: 'Equipo técnico profesional para cumplir cualquier desafío de tiempo y costo.' 
+  },
+  { 
+    nombre: 'Responsabilidad', 
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-8 h-8">
+      <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+    </svg>`,
+    descripcion: 'Cumplimos con los compromisos en plazos y especificaciones técnicas.' 
+  },
+  { 
+    nombre: 'Proactividad', 
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-8 h-8">
+      <path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+    </svg>`,
+    descripcion: 'Anticipamos necesidades y proponemos soluciones antes de que surjan.' 
+  },
 ]
 
-const timeline = [
-  { year: '1994', title: 'Fundación', desc: 'Inicio de operaciones en Guerrero, México' },
-  { year: '2005', title: 'Expansión Nacional', desc: 'Operaciones en múltiples estados de México' },
-  { year: '2015', title: 'Proyectos Internacionales', desc: 'Primeros proyectos fuera de México' },
-  { year: '2024', title: 'Consolidación Global', desc: '+500 proyectos en 15+ países' },
+// Timeline real 2018-2024
+const timelineHitos = [
+  { 
+    año: '2018', 
+    titulo: 'Inicio de Operaciones', 
+    subtitulo: '243 puentes en Estado de México',
+    descripcion: 'Primeros contratos de conservación de puentes con el STC. Se intervienen 110 puentes en Zona Texcoco y 133 en Zona Toluca.',
+    logro: '243 puentes',
+    imagen: '/images/projects/puente-el-naranjo.png',
+    color: 'from-sky-500 to-sky-600',
+  },
+  { 
+    año: '2019', 
+    titulo: 'Expansión a Guerrero', 
+    subtitulo: 'Primer proyecto educativo',
+    descripcion: 'Ingreso al sector de infraestructura educativa con la construcción de aulas en Tlapa de Comonfort para SDUOPOT.',
+    logro: '2 contratos',
+    imagen: '/images/projects/aulas-Col. El Dorado.png',
+    color: 'from-violet-500 to-violet-600',
+  },
+  { 
+    año: '2020', 
+    titulo: 'Diversificación', 
+    subtitulo: 'Nuevas líneas de servicio',
+    descripcion: 'Ampliación a canchas deportivas, techados y muros de contención en la Región Montaña.',
+    logro: '2 obras',
+    imagen: '/images/projects/cancha-Xochihuehuetlan.png',
+    color: 'from-emerald-500 to-emerald-600',
+  },
+  { 
+    año: '2021', 
+    titulo: 'Consolidación', 
+    subtitulo: 'Reconocimiento por cumplimiento',
+    descripcion: 'Fortalecimiento en Guerrero con proyectos educativos en múltiples municipios.',
+    logro: '100% entregas',
+    imagen: '/images/projects/aula-tlapa2.png',
+    color: 'from-amber-500 to-amber-600',
+  },
+  { 
+    año: '2022', 
+    titulo: 'Pavimentación Urbana', 
+    subtitulo: 'Costa Chica de Guerrero',
+    descripcion: 'Entrada al sector de pavimentación con concreto hidráulico en Ometepec.',
+    logro: '2 calles',
+    imagen: '/images/projects/pavimentacion-ometepec.png',
+    color: 'from-orange-500 to-orange-600',
+  },
+  { 
+    año: '2023', 
+    titulo: 'Caminos Artesanales', 
+    subtitulo: '11+ km construidos',
+    descripcion: 'Participación en el Programa de Caminos Artesanales del H. Ayuntamiento de Tlapa.',
+    logro: '11.2 km',
+    imagen: '/images/projects/camino-artesanal-tlapa.png',
+    color: 'from-teal-500 to-teal-600',
+  },
+  { 
+    año: '2024', 
+    titulo: 'Proyectos Estatales, nacionales', 
+    subtitulo: 'Contratos CICAEG',
+    descripcion: 'Rehabilitación de carreteras y puentes vehiculares con dependencias estatales.',
+    logro: '4 contratos',
+    imagen: '/images/projects/rehabilitacion-carretero-ayutla.png',
+    color: 'from-rose-500 to-rose-600',
+  },
 ]
 
-const services = [
-  { title: 'Construcción Residencial', desc: 'Casas, departamentos y desarrollos habitacionales' },
-  { title: 'Construcción Comercial', desc: 'Plazas, oficinas y centros comerciales' },
-  { title: 'Construcción Industrial', desc: 'Naves, bodegas y plantas de producción' },
-  { title: 'Infraestructura', desc: 'Obras civiles, hidráulicas y de servicios' },
-  { title: 'Consultoría Internacional', desc: 'Asesoría técnica en proyectos globales' },
-  { title: 'Inmobiliaria', desc: 'Desarrollo y comercialización de propiedades' },
+// Cifras acumuladas
+const cifras = [
+  { valor: '243', sufijo: '+', etiqueta: 'Puentes', detalle: 'rehabilitados' },
+  { valor: '17', sufijo: '+', etiqueta: 'Proyectos', detalle: 'completados' },
+  { valor: '8', sufijo: '', etiqueta: 'Municipios', detalle: 'atendidos' },
+  { valor: '100', sufijo: '%', etiqueta: 'Cumplimiento', detalle: 'de plazos' },
 ]
 
 export default function NosotrosPage() {
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50">
-        <div className="glass-dark">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-400 to-sky-600 flex items-center justify-center">
-                <span className="text-white font-bold text-lg">CG</span>
-              </div>
-              <div className="hidden sm:block">
-                <span className="font-bold text-white text-lg">COSTA G</span>
-                <span className="block text-[10px] text-sky-300 -mt-1">Constructora & Inmobiliaria</span>
-              </div>
-            </Link>
-            <nav className="hidden md:flex items-center gap-8">
-              <Link href="/" className="text-white/70 hover:text-white text-sm font-medium">Inicio</Link>
-              <Link href="/nosotros" className="text-white text-sm font-medium">Nosotros</Link>
-              <Link href="/servicios" className="text-white/70 hover:text-white text-sm font-medium">Servicios</Link>
-              <Link href="/proyectos" className="text-white/70 hover:text-white text-sm font-medium">Proyectos</Link>
-              <Link href="/contacto" className="px-5 py-2.5 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 text-white text-sm font-semibold">Cotizar</Link>
-            </nav>
-          </div>
-        </div>
-      </header>
+    <main id="main-content">
+      {/* ============================================
+          HERO SECTION
+          ============================================ */}
+      <section className="relative min-h-[60vh] flex items-center overflow-hidden">
+        {/* Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+        
+        {/* Decorative Elements */}
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-sky-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
 
-      {/* Hero */}
-      <section className="pt-24 pb-16 gradient-hero pattern-grid">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-20">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-white/90 text-sm font-medium mb-6">
-            Conócenos
-          </span>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-6">
-            Sobre <span className="text-gradient-sky">COSTA G</span>
-          </h1>
-          <p className="text-xl text-white/70 max-w-2xl">
-            Más de 30 años construyendo sueños en México y el mundo. Líderes en construcción e inmobiliaria.
-          </p>
-        </div>
-      </section>
-
-      {/* Historia */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <span className="inline-block px-4 py-1.5 rounded-full bg-sky-100 text-sky-600 text-sm font-semibold mb-4">
-                Nuestra Historia
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-black text-slate-800 mb-6">
-                <span className="text-gradient-gold">COSTA G</span> - Constructora e Inmobiliaria
-              </h2>
-              <div className="space-y-4 text-slate-600 leading-relaxed">
-                <p>
-                  <strong className="text-slate-800">Comercializadora e Inmobiliaria Costa G S.A. de C.V.</strong> es una empresa 
-                  líder en el sector de la construcción con más de <strong className="text-sky-600">30 años de experiencia</strong> 
-                  desarrollando proyectos de alta calidad.
-                </p>
-                <p>
-                  Nos especializamos en <strong>construcción residencial, comercial e industrial</strong>, así como en 
-                  <strong> obras de infraestructura</strong> y servicios de <strong>consultoría técnica</strong> a nivel 
-                  nacional e internacional.
-                </p>
-                <p>
-                  Con presencia en <strong className="text-amber-600">15+ países</strong> y más de 
-                  <strong className="text-amber-600"> 500 proyectos completados</strong>, somos el socio confiable 
-                  para hacer realidad cualquier proyecto de construcción.
-                </p>
-              </div>
-            </div>
-            <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl p-8 text-white">
-              <h3 className="text-2xl font-bold mb-8">Nuestra Trayectoria</h3>
-              <div className="space-y-6">
-                {timeline.map((item, i) => (
-                  <div key={i} className="flex gap-4">
-                    <div className="flex flex-col items-center">
-                      <div className="w-14 h-14 rounded-full bg-gradient-to-br from-sky-400 to-sky-600 flex items-center justify-center font-bold text-sm">
-                        {item.year}
-                      </div>
-                      {i < timeline.length - 1 && <div className="w-0.5 h-full bg-white/20 mt-2" />}
-                    </div>
-                    <div className="pb-6">
-                      <h4 className="font-bold text-lg">{item.title}</h4>
-                      <p className="text-white/70 text-sm">{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Valores */}
-      <section className="py-20 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-16">
-            <span className="inline-block px-4 py-1.5 rounded-full bg-amber-100 text-amber-700 text-sm font-semibold mb-4">
-              Lo que nos define
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-32">
+          <div className="max-w-3xl">
+            <span className="inline-block px-4 py-2 mb-6 bg-sky-500/20 backdrop-blur-sm 
+                           rounded-full text-sky-400 text-sm font-medium">
+              Desde 2018
             </span>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-800">
-              Nuestros <span className="text-gradient-sky">Valores</span>
-            </h2>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {values.map((value, i) => (
-              <div key={i} className="p-6 bg-white rounded-2xl border border-slate-100 hover:shadow-lg transition-all hover-lift text-center">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-sky-100 to-sky-50 flex items-center justify-center text-3xl mx-auto mb-4">
-                  {value.icon}
-                </div>
-                <h3 className="text-xl font-bold text-slate-800 mb-2">{value.title}</h3>
-                <p className="text-slate-500 text-sm">{value.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Servicios */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-800 mb-4">
-              Áreas de <span className="text-gradient-gold">Especialización</span>
-            </h2>
-            <p className="text-slate-500 max-w-2xl mx-auto">
-              Ofrecemos soluciones integrales de construcción e inmobiliaria para todo tipo de proyectos.
+            
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white 
+                         leading-[1.08] mb-8 tracking-tight">
+              Construyendo el{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-emerald-400">
+                futuro
+              </span>
+              {' '}de Guerrero
+            </h1>
+            
+            <p className="text-xl text-slate-300 leading-relaxed">
+              Somos una empresa joven con bases sólidas en ser una constructora Bio-Sustentable. 
+              En un corto tiempo hemos desarrollado obras importantes cumpliendo con los costos 
+              y tiempos de ejecución.
             </p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((service, i) => (
-              <div key={i} className="p-6 rounded-2xl bg-slate-50 hover:bg-sky-50 transition-colors border border-slate-100 hover:border-sky-200">
-                <h3 className="text-lg font-bold text-slate-800 mb-2">{service.title}</h3>
-                <p className="text-slate-500 text-sm">{service.desc}</p>
+        </div>
+      </section>
+
+      {/* ============================================
+          STATS SECTION
+          ============================================ */}
+      <section className="py-16 bg-white border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            {cifras.map((cifra, index) => (
+              <div 
+                key={cifra.etiqueta}
+                className="text-center group"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <div className="font-display text-5xl lg:text-6xl font-bold 
+                              bg-gradient-to-br from-sky-500 to-sky-600 bg-clip-text text-transparent
+                              transition-transform duration-500 group-hover:scale-110">
+                  {cifra.valor}<span className="text-4xl">{cifra.sufijo}</span>
+                </div>
+                <div className="text-slate-800 font-semibold mt-2">{cifra.etiqueta}</div>
+                <div className="text-slate-500 text-sm">{cifra.detalle}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Misión y Visión */}
-      <section className="py-20 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="p-8 rounded-3xl bg-gradient-to-br from-sky-500 to-sky-600 text-white">
-              <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center text-3xl mb-6">🎯</div>
-              <h3 className="text-2xl font-bold mb-4">Misión</h3>
-              <p className="text-white/90 leading-relaxed">
-                Desarrollar proyectos de construcción de la más alta calidad, superando las expectativas de nuestros 
-                clientes a través de la innovación, profesionalismo y compromiso con la excelencia, tanto a nivel 
-                nacional como internacional.
-              </p>
-            </div>
-            <div className="p-8 rounded-3xl bg-gradient-to-br from-amber-500 to-amber-600 text-white">
-              <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center text-3xl mb-6">🔭</div>
-              <h3 className="text-2xl font-bold mb-4">Visión</h3>
-              <p className="text-white/90 leading-relaxed">
-                Ser la empresa constructora e inmobiliaria de referencia a nivel global, reconocida por nuestra 
-                calidad, innovación y capacidad para transformar ideas en realidades arquitectónicas excepcionales 
-                en cualquier parte del mundo.
-              </p>
+      {/* ============================================
+          TIMELINE SECTION - VISUAL INTERACTIVO
+          ============================================ */}
+      <section className="py-24 lg:py-32 bg-slate-50 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          {/* Section Header */}
+          <div className="text-center mb-20">
+            <span className="text-sm font-semibold text-sky-600 tracking-wide uppercase">
+              Nuestra Evolución
+            </span>
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-800 mt-4">
+              7 Años de Crecimiento
+            </h2>
+          </div>
+
+          {/* Timeline */}
+          <div className="relative">
+            {/* Central Line */}
+            <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-sky-500 via-emerald-500 to-amber-500 
+                          hidden lg:block transform -translate-x-1/2" />
+
+            {/* Timeline Items */}
+            <div className="space-y-12 lg:space-y-24">
+              {timelineHitos.map((hito, index) => {
+                const isEven = index % 2 === 0
+                
+                return (
+                  <div 
+                    key={hito.año}
+                    className={`relative flex flex-col lg:flex-row items-center gap-8 lg:gap-16
+                              ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}
+                  >
+                    {/* Image Side */}
+                    <div className={`w-full lg:w-5/12 ${isEven ? 'lg:text-right' : 'lg:text-left'}`}>
+                      <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl
+                                    group cursor-pointer">
+                        <Image
+                          src={hito.imagen}
+                          alt={`${hito.titulo} - ${hito.año}`}
+                          fill
+                          className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                        
+                        {/* Year Badge */}
+                        <div className={`absolute top-4 ${isEven ? 'right-4' : 'left-4'}
+                                      px-4 py-2 rounded-full bg-gradient-to-r ${hito.color}
+                                      text-white font-bold text-lg shadow-lg`}>
+                          {hito.año}
+                        </div>
+                        
+                        {/* Logro Badge */}
+                        <div className={`absolute bottom-4 ${isEven ? 'right-4' : 'left-4'}
+                                      px-4 py-2 rounded-xl bg-white/95 backdrop-blur-sm`}>
+                          <span className="font-bold text-slate-800">{hito.logro}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Center Dot - Desktop */}
+                    <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2
+                                  w-6 h-6 rounded-full bg-white border-4 border-sky-500 shadow-lg z-10" />
+
+                    {/* Content Side */}
+                    <div className={`w-full lg:w-5/12 ${isEven ? 'lg:text-left' : 'lg:text-right'}`}>
+                      <div className={`p-8 bg-white rounded-2xl shadow-lg border border-slate-100
+                                    hover:shadow-xl transition-shadow duration-300`}>
+                        <span className={`inline-block px-3 py-1 rounded-full text-sm font-semibold
+                                       bg-gradient-to-r ${hito.color} text-white mb-4`}>
+                          {hito.subtitulo}
+                        </span>
+                        <h3 className="font-display text-2xl font-bold text-slate-800 mb-4">
+                          {hito.titulo}
+                        </h3>
+                        <p className="text-slate-600 leading-relaxed">
+                          {hito.descripcion}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="py-20 gradient-sky">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-5xl font-black text-white mb-2">30+</div>
-              <div className="text-white/70">Años de Experiencia</div>
+      {/* ============================================
+          MISSION & VALUES
+          ============================================ */}
+      <section className="py-24 lg:py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          {/* Mission */}
+          <div className="max-w-4xl mx-auto text-center mb-20">
+            <span className="text-sm font-semibold text-sky-600 tracking-wide uppercase">
+              Nuestra Misión
+            </span>
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-800 mt-4 mb-8">
+              Construir con{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-sky-500">
+                responsabilidad
+              </span>
+            </h2>
+            <p className="text-xl text-slate-600 leading-relaxed">
+              {identidad.mision}
+            </p>
+          </div>
+
+          {/* Values Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {valores.map((valor, index) => (
+              <div 
+                key={valor.nombre}
+                className="group p-8 bg-slate-50 rounded-2xl border border-slate-100
+                         hover:bg-white hover:shadow-xl hover:-translate-y-2
+                         transition-all duration-500"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <div 
+                  className="w-16 h-16 mb-6 rounded-2xl bg-gradient-to-br from-sky-500 to-sky-600
+                           flex items-center justify-center text-white
+                           group-hover:scale-110 group-hover:rotate-3
+                           transition-transform duration-500"
+                  dangerouslySetInnerHTML={{ __html: valor.icon }}
+                />
+                <h3 className="font-display text-xl font-bold text-slate-800 mb-3">
+                  {valor.nombre}
+                </h3>
+                <p className="text-slate-600 leading-relaxed text-sm">
+                  {valor.descripcion}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================
+          CONTACT INFO
+          ============================================ */}
+      <section className="py-24 lg:py-32 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            {/* Map Placeholder */}
+            <div className="relative aspect-square lg:aspect-[4/3] rounded-3xl overflow-hidden bg-slate-200">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center p-8">
+                  <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-sky-100 
+                                flex items-center justify-center">
+                    <svg className="w-10 h-10 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} 
+                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} 
+                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                  </div>
+                  <h3 className="font-display text-xl font-bold text-slate-800 mb-2">
+                    Chilpancingo, Guerrero
+                  </h3>
+                  <p className="text-slate-500">Capital del estado</p>
+                </div>
+              </div>
             </div>
+
+            {/* Contact Details */}
             <div>
-              <div className="text-5xl font-black text-white mb-2">500+</div>
-              <div className="text-white/70">Proyectos Completados</div>
-            </div>
-            <div>
-              <div className="text-5xl font-black text-white mb-2">15+</div>
-              <div className="text-white/70">Países</div>
-            </div>
-            <div>
-              <div className="text-5xl font-black text-white mb-2">100%</div>
-              <div className="text-white/70">Satisfacción</div>
+              <span className="text-sm font-semibold text-sky-600 tracking-wide uppercase">
+                Ubicación
+              </span>
+              <h2 className="font-display text-3xl sm:text-4xl font-bold text-slate-800 mt-4 mb-8">
+                Oficinas Centrales
+              </h2>
+
+              <div className="space-y-6">
+                {/* Address */}
+                <div className="flex gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-sky-100 flex items-center justify-center flex-shrink-0">
+                    <svg className="w-6 h-6 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} 
+                            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-slate-800 mb-1">Dirección</h4>
+                    <p className="text-slate-600 leading-relaxed">
+                      Galo Soberón y Parra, Edif. C, Depto. #302<br />
+                      Col. Las Torres, C.P. 39076<br />
+                      Chilpancingo, Guerrero
+                    </p>
+                  </div>
+                </div>
+
+                {/* Phone */}
+                <div className="flex gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-sky-100 flex items-center justify-center flex-shrink-0">
+                    <svg className="w-6 h-6 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} 
+                            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-slate-800 mb-1">Teléfono</h4>
+                    <a href="tel:+527472735934" className="text-sky-600 hover:underline text-lg">
+                      747 273 5934
+                    </a>
+                  </div>
+                </div>
+
+                {/* Email */}
+                <div className="flex gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-sky-100 flex items-center justify-center flex-shrink-0">
+                    <svg className="w-6 h-6 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} 
+                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-slate-800 mb-1">Correo</h4>
+                    <a href="mailto:Inmob.costag@Hotmail.com" className="text-sky-600 hover:underline">
+                      Inmob.costag@Hotmail.com
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-10">
+                <Button href="/contacto" size="lg">
+                  Enviar Mensaje
+                </Button>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <h2 className="text-3xl sm:text-4xl font-black text-slate-800 mb-6">
-            ¿Listo para trabajar con nosotros?
-          </h2>
-          <p className="text-xl text-slate-500 mb-8">
-            Contáctanos y descubre cómo podemos hacer realidad tu proyecto.
-          </p>
-          <Link href="/contacto" className="inline-block px-8 py-4 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 text-white font-bold text-lg hover:shadow-glow-gold transition-all hover:scale-105">
-            Solicitar Consultoría
-          </Link>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-slate-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
-          <p className="text-slate-400">© {new Date().getFullYear()} COSTA G - Constructora e Inmobiliaria. Todos los derechos reservados.</p>
-        </div>
-      </footer>
-
-      {/* WhatsApp */}
-      <a href="https://wa.me/527472735934?text=Hola,%20me%20interesa%20conocer%20más%20sobre%20Costa%20G" target="_blank" rel="noopener noreferrer" className="whatsapp-btn animate-pulse-glow">
-        <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      </a>
-    </div>
+      {/* ============================================
+          CTA SECTION
+          ============================================ */}
+      <CTASection
+        title="¿Listo para su próximo proyecto?"
+        description="Contamos con la experiencia y el equipo técnico para hacer realidad su visión."
+        primaryButtonText="Solicitar Cotización"
+      />
+    </main>
   )
 }

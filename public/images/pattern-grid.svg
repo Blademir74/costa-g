@@ -1,0 +1,43 @@
+<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+    <g fill="#94a3b8" fill-opacity="0.2" fill-rule="evenodd">
+        <path d="M0 40L40 0H20L0 20M40 40V20L20 40"/>
+    </g>
+</svg>
+```
+
+#### C. Error Supabase Image URL (Typo)
+El error `upstream image response failed... ehabilitacion` indica un error de dedo en la base de datos.
+Nombre incorrecto: `ehabilitacion-carretero-ayutla.png`
+Nombre correcto esperado: `rehabilitacion-carretero-ayutla.png` (o el que tengas en el bucket).
+
+**Corrección SQL:**
+Ejecuta esto en Supabase SQL Editor para corregir el registro específico:
+
+```sql
+UPDATE projects 
+SET main_image_url = REPLACE(main_image_url, 'ehabilitacion', 'rehabilitacion')
+WHERE main_image_url LIKE '%ehabilitacion%';
+```
+
+#### D. Advertencia `metadataBase`
+Esto es vital para SEO y para que las imágenes de compartir en redes (OG Images) funcionen.
+
+**Archivo:** `src/app/layout.tsx`
+
+```tsx
+import type { Metadata } from 'next'
+
+// ... imports
+
+export const metadata: Metadata = {
+  // Cambia esto a tu dominio real de Vercel cuando lo tengas
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://costa-g.vercel.app'),
+  title: {
+    template: '%s | Costa G',
+    default: 'Costa G | Infraestructura Pública y Edificación',
+  },
+  description: 'Portafolio de obra pública: Puentes, Caminos y Edificación en México.',
+  openGraph: {
+    images: '/images/og-default.jpg', // Asegúrate de tener esta imagen en public
+  },
+}
