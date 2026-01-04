@@ -31,7 +31,7 @@ export default async function HomePage() {
 
   // 3. Stats
   const stats = (statsConfigRaw as any) || [
-    { label: "Obras Entregadas", value: "17", icon: "helmet" },
+    { label: "Obras Entregadas", value: "19", icon: "helmet" },
     { label: "Puentes", value: "243+", icon: "bridge" },
     { label: "Años", value: "7+", icon: "badge" },
     { label: "Calidad", value: "100%", icon: "check" }
